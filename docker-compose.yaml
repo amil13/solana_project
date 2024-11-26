@@ -1,0 +1,37 @@
+services:
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    ports:
+      - "8086:8086"
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=userdb
+      - DOCKER_INFLUXDB_INIT_PASSWORD=userdb_pass
+      - DOCKER_INFLUXDB_INIT_ORG=solanaDBOrg
+      - DOCKER_INFLUXDB_INIT_BUCKET=solana_TPS
+      - DOCKER_INFLUXDB_INIT_RETENTION=30d
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=ULTRA_SECURE_KEY_THAT_NOBODY_CAN_HACK
+      - INFLUXDB_URL=http://influxdb:8086
+
+  rust_backend:
+    build:
+      context: ./rust_backend
+      dockerfile: Dockerfile
+    depends_on:
+        - influxdb
+
+  streamlit_dashboard:
+    build:
+      context: ./streamlit_dashboard
+      dockerfile: Dockerfile
+    depends_on:
+        - influxdb
+    environment:  
+      - DOCKER_INFLUXDB_INIT_ORG=solanaDBOrg
+      - DOCKER_INFLUXDB_INIT_BUCKET=solana_TPS
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=ULTRA_SECURE_KEY_THAT_NOBODY_CAN_HACK
+      - INFLUXDB_URL=http://influxdb:8086
+
+    ports:
+      - "8501:8501"
