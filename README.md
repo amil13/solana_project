@@ -17,7 +17,7 @@ This dashboard provides real-time insights into the Solana blockchain’s perfor
 
 Before running the project, ensure the following tools are installed:
 
-- **Docker**
+- **Docker** (Ensure that it is running at the time of running the run_project.py script)
 - **Python 3.10 or above** - for running the run_project.py script
   
 ## How to Run
