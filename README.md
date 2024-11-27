@@ -18,8 +18,8 @@ This dashboard provides real-time insights into the Solana blockchain’s perfor
 Before running the project, ensure the following tools are installed:
 
 - **Docker**
-- **Python 3.10 or above** - for running the Python-based Streamlit visualization tool.
-
+- **Python 3.10 or above** - for running the run_project.py script
+  
 ## How to Run
 
 1. Clone the repository to your local machine.
